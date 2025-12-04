@@ -1,0 +1,88 @@
+# YouTube Video Splitter Configuration
+
+app:
+  name: "YouTube Video Splitter"
+  version: "1.0.0"
+  debug: false
+
+download:
+  default_quality: "best"
+  max_retries: 3
+  timeout: 30
+  chunk_size: 1024 * 1024  # 1MB
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+
+splitter:
+  min_clip_duration: 30  # seconds
+  max_clip_duration: 60  # seconds
+  default_duration_range: [30, 60]
+  overlap_prevention: true
+  overlap_threshold: 2  # seconds
+
+captions:
+  enabled: true
+  default_style: "standard"
+  font_directory: "./fonts"
+  max_chars_per_line: 40
+  background_opacity: 0.7
+  styles:
+    standard:
+      font_size: 28
+      font_color: "#FFFFFF"
+      background_color: "#000000"
+      stroke_color: "#000000"
+      stroke_width: 2
+    minimal:
+      font_size: 24
+      font_color: "#FFFFFF"
+      background_color: "transparent"
+      stroke_color: "none"
+    bold:
+      font_size: 32
+      font_color: "#FFFFFF"
+      background_color: "#000000"
+      stroke_color: "#000000"
+      stroke_width: 3
+    outline:
+      font_size: 30
+      font_color: "#FFFFFF"
+      background_color: "transparent"
+      stroke_color: "#000000"
+      stroke_width: 3
+
+video:
+  default_format: "mp4"
+  codec: "libx264"
+  audio_codec: "aac"
+  crf: 23  # Constant Rate Factor (lower = higher quality)
+  preset: "medium"
+  fps: "source"
+
+output:
+  default_directory: "./output"
+  naming_convention: "{title}_clip_{number:03d}"
+  keep_original: false
+  cleanup_temp: true
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "app.log"
+
+# FFmpeg settings
+ffmpeg:
+  path: "ffmpeg"  # Use system FFmpeg
+  threads: 4
+  temp_directory: "./temp"
+  
+# Performance settings
+performance:
+  max_concurrent_downloads: 2
+  max_concurrent_splits: 2
+  use_gpu_acceleration: false
+
+# Security settings
+security:
+  allowed_domains: ["youtube.com", "youtu.be", "youtube-nocookie.com"]
+  max_video_size: 2 * 1024 * 1024 * 1024  # 2GB
+  validate_ssl: true
